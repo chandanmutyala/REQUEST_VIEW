@@ -1,0 +1,18 @@
+
+/* Enter your custom styles here */
+.sapUiTableSelModeMultiToggle .sapUiTableRowSelectionHeaderCell.sapUiTableSelAllVisible .sapUiTableSelectAllCheckBox {
+    display: none !important;
+}
+.sapUiTableRowSelectionCell, .sapUiTableRowActionCell {
+    display: none !important;
+}
+.onClickStatus{
+    float: right !important;
+}
+.sapUiCompFilterBar .sapMBtnBase.sapMBtn {
+    padding: 0 2px;
+    display: none !important;
+}
+.box{
+    gap: 20px !important;
+}

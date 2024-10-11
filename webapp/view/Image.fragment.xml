@@ -1,0 +1,20 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+    <Dialog
+        id="imageDialog"
+        title="Image Details"
+        afterClose="onDialogClose">
+        <content>
+            <Image
+                id="dialogImage"
+                src="{jsonModel>/imagePath}" 
+                width="100%"
+                height="100%" />
+           
+        </content>
+        <beginButton>
+            <Button
+                text="Close"
+                press="onCloseDialog" />
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

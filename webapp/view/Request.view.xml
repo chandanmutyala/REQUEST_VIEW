@@ -1,0 +1,314 @@
+<mvc:View controllerName="com.requestview.requestview.controller.Request"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:m="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:svm="sap.ui.comp.smartvariants"
+    xmlns:table="sap.ui.table"
+    xmlns:rowmodes="sap.ui.table.rowmodes"
+    xmlns="sap.m">
+  
+    <f:DynamicPage>
+        <f:header>
+            <f:DynamicPageHeader>
+                <f:content>
+                    <Title
+                        text="Request View"
+                        wrapping="false"
+                    >
+                        <layoutData>
+                            <OverflowToolbarLayoutData priority="Disappear" />
+                        </layoutData>
+                    </Title>
+                    <fb:FilterBar
+                        id="filterbar"
+                        persistencyKey="myPersKey"
+                        useToolbar="false"
+                        search=".onSearch"
+                        filterChange=".onFilterChange"
+                        afterVariantLoad=".onAfterVariantLoad"
+                    >
+                    <HBox class="box">
+                       <VBox>
+        <Label text="Material Group" />
+        <Input
+            id="productInput"
+            valueHelpRequest=".onValueHelpRequest"
+            showValueHelp="true"
+            value="{jsonModel>/selectedMaterialGroup}"
+            placeholder="Select material group"
+            showSuggestion="true"
+            suggestionItems="{
+                path: 'jsonModel>/filters/0/materialGroups',
+                templateShareable: false
+            }">
+            <suggestionItems>
+                <core:Item text="{jsonModel>Name}" /> <!-- Change this to jsonModel>name -->
+            </suggestionItems>
+        </Input>
+    </VBox>
+      <VBox>
+           <Label text="Purchase Group" />
+    <Input
+        id="productInputPurchase"
+        valueHelpRequest=".onValueHelpRequestPurchaseGroup"
+        showValueHelp="true"
+        value="{jsonModel>/selectedPurchaseGroup}"
+        placeholder="Select purchase group"
+        showSuggestion="true"
+        suggestionItems="{
+            path: 'jsonModel>/filters/1/purchaseGroups',
+            templateShareable: false
+        }">
+        <suggestionItems>
+            <core:Item text="{jsonModel>name}" />
+        </suggestionItems>
+    </Input>
+      </VBox>
+
+    <!-- Input for Requested For -->
+    <VBox >
+          <Label text="Requested For" />
+    <Input
+        id="productInputRequested"
+        valueHelpRequest=".onValueHelpRequestRequestedFor"
+        showValueHelp="true"
+        value="{jsonModel>/selectedRequestedFor}"
+        placeholder="Select requested for"
+        showSuggestion="true"
+        suggestionItems="{
+            path: 'jsonModel>/filters/2/requestedFor',
+            templateShareable: false
+        }">
+        <suggestionItems>
+            <core:Item text="{jsonModel>name}" />
+        </suggestionItems>
+    </Input>
+    </VBox>
+
+    <!-- Input for Request Type -->
+   <VBox >
+       <Label text="Request Type" />
+    <Input
+        id="productInputRequestType"
+        valueHelpRequest=".onValueHelpRequestRequestType"
+        showValueHelp="true"
+        value="{jsonModel>/selectedRequestType}"
+        placeholder="Select request type"
+        showSuggestion="true"
+        suggestionItems="{
+            path: 'jsonModel>/filters/3/requestTypes',
+            templateShareable: false
+        }">
+        <suggestionItems>
+            <core:Item text="{jsonModel>Type}" />
+        </suggestionItems>
+    </Input>
+   </VBox>
+
+    <!-- Input for Commodity Type -->
+   <VBox >
+       <Label text="Commodity Type" />
+    <Input
+        id="productInputCommodity"
+        valueHelpRequest=".onValueHelpRequestCommodityType"
+        showValueHelp="true"
+        value="{jsonModel>/selectedCommodityType}"
+        placeholder="Select commodity type"
+        showSuggestion="true"
+        suggestionItems="{
+            path: 'jsonModel>/filters/4/commodityTypes',
+            templateShareable: false
+        }">
+        <suggestionItems>
+            <core:Item text="{jsonModel>Type}" />
+        </suggestionItems>
+    </Input>
+   </VBox>
+
+       
+
+
+                    </HBox>
+                        
+                    </fb:FilterBar>
+
+                  <VBox>
+        <Button text="Status" class="onClickStatus" press="onClickStatus" />
+    </VBox>
+    
+                </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <table:Table
+    class="RequestTable"
+    id="scopeItemsTable"
+    rows="{jsonModel>/Requests}"  
+    ariaLabelledBy="title"
+    rowActionCount="20"
+>
+    <table:extension>
+        <m:OverflowToolbar style="Clear">
+            <m:Title id="title" text="Request View Data" />
+        </m:OverflowToolbar>
+    </table:extension>
+    <table:rowMode>
+        <rowmodes:Fixed rowCount="15" />
+    </table:rowMode>
+
+    <table:columns>
+        <table:Column width="11rem">
+            <Label text="Material Group" />
+            <table:template>
+                <m:Text text="{jsonModel>materialGroup}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Purchase Group" />
+            <table:template>
+                <m:Text text="{jsonModel>purchaseGroup}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Created By" />
+            <table:template>
+                <m:Text text="{jsonModel>createdBy}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Requested For" />
+            <table:template>
+                <m:Text text="{jsonModel>requestedFor}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Enterprise Procurement" />
+            <table:template>
+                <m:Text text="{jsonModel>enterpriseProcurement}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="EPO Unit" />
+            <table:template>
+                <m:Text text="{jsonModel>enterpriseProcurementOrganizationUnit}" wrapping="false" />
+            </table:template>
+        </table:Column>
+       <table:Column width="11rem">
+    <Label text="Request Type" />
+    <table:template>
+        <m:ObjectStatus
+            text="{jsonModel>requestType}"
+            state="{= ${jsonModel>requestType} === 'Approved' ? 'Success' : ${jsonModel>requestType} === 'In Process' ? 'Warning' : 'Error'}" />
+    </table:template>
+</table:Column>
+        <table:Column width="11rem">
+            <Label text="Commodity Type" />
+            <table:template>
+                <m:Text text="{jsonModel>commodityType}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Budget Approved" />
+            <table:template>
+                <m:Text text="{jsonModel>budgetApproved}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Project Name" />
+            <table:template>
+                <m:Text text="{jsonModel>projectName}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Type Of Funding" />
+            <table:template>
+                <m:Text text="{jsonModel>typeOfFunding}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Estimated Proj Amount" />
+            <table:template>
+                <m:Text text="{jsonModel>estimatedProjAmount}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Estimated Proj.Start Date" />
+            <table:template>
+                <m:Text text="{jsonModel>estimatedProjStartDate}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Estimated Proj.End Date" />
+            <table:template>
+                <m:Text text="{jsonModel>estimatedProjEndDate}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Cyber Risk Level" />
+            <table:template>
+                <m:Text text="{jsonModel>cyberRiskLevel}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Potential Supplier" />
+            <table:template>
+                <m:Text text="{jsonModel>potentialSupplier}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="NERC CIP" />
+            <table:template>
+                <m:Text text="{jsonModel>nercCIP}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="For" />
+            <table:template>
+                <m:Text text="{jsonModel>stakeFor}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="FRM Approval" />
+            <table:template>
+                <m:Text text="{jsonModel>frmApproval}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Priority" />
+            <table:template>
+                <m:Text text="{jsonModel>priority}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Edison Rep" />
+            <table:template>
+                <m:Text text="{jsonModel>edisonRep}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="ProvideProcReqDetails" />
+            <table:template>
+                <m:Text text="{jsonModel>provideProcReqDetails}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Comments" />
+            <table:template>
+                <m:Text text="{jsonModel>comments}" wrapping="false" />
+            </table:template>
+        </table:Column>
+        <table:Column width="11rem">
+            <Label text="Status" />
+            <table:template>
+                <m:Text text="{jsonModel>status}" wrapping="false" />
+            </table:template>
+        </table:Column>
+       
+    </table:columns>
+</table:Table>
+
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>
